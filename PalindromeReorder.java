@@ -8,6 +8,10 @@ public class PalindromeReorder {
 		String n = ns();
 		HashMap<Character, Integer> eachCharacter = new HashMap<Character, Integer>();
 
+		StringBuilder left = new StringBuilder();
+		StringBuilder right = new StringBuilder();
+		StringBuilder mid = new StringBuilder();
+		StringBuilder line = new StringBuilder();
 		for (int i = 0; i < n.length(); i++) {
 			Character temp = n.charAt(i);
 			if (!eachCharacter.containsKey(temp)) {
@@ -16,9 +20,40 @@ public class PalindromeReorder {
 				eachCharacter.put(temp, eachCharacter.get(temp) + 1);
 			}
 		}
-		System.out.println(0);
+		for (Character key : eachCharacter.keySet()) {
+			int count = eachCharacter.get(key);
+			if (count < 2) {
+				mid.append(key);
+			} else {
+				if (eachCharacter.get(key) % 2 == 0) {
+					for (int i = 0; i < count / 2; i++) {
+						left.append(key);
+						right.append(key);
+					}
+				} else {
+					for (int i = 0; i < (count - 1) / 2; i++) {
+						left.append(key);
+						right.append(key);
+					}
+					mid.append(key);
+				}
+			}
+		}
+
+		if (mid.length() > 1) {
+			System.out.println("NO SOLUTION");
+		} else {
+			right.reverse();
+			line.append(left).append(mid).append(right);
+			System.out.print(line);
+
+		}
 	}
 
+	
+	
+	
+	//
 	static byte[] inbuf = new byte[1 << 24];
 	static int lenbuf = 0, ptrbuf = 0;
 
